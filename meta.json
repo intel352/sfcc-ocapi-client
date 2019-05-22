@@ -1,0 +1,1071 @@
+{
+  "basePath": "/s/-/dw/meta/v99_9",
+  "consumes": [
+    "application/json",
+    "text/xml",
+    "application/xml"
+  ],
+  "definitions": {
+    "api_description": {
+      "description": "Description for a specific API.",
+      "properties": {
+        "link": {
+          "description": "Link to the meta data for the API.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Name of the API.",
+          "type": "string"
+        }
+      }
+    },
+    "api_result": {
+      "description": "Result, containing all API description objects.",
+      "properties": {
+        "apis": {
+          "description": "Array of descriptions for all existing APIs.",
+          "items": {
+            "$ref": "#/definitions/api_description"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "customer_group_rule_meta_data": {
+      "description": "Document representing meta data for customer group rules.",
+      "properties": {
+        "groups": {
+          "description": "The list of attribute groups.",
+          "items": {
+            "$ref": "#/definitions/rule_attribute_group"
+          },
+          "type": "array"
+        },
+        "quotas": {
+          "description": "The quota limits for customer group rules.",
+          "items": {
+            "$ref": "#/definitions/quota"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "document": {
+      "description": "Object, representing a WebAPI document.",
+      "properties": {
+        "description": {
+          "description": "Description of the document.",
+          "type": "string"
+        },
+        "properties": {
+          "additionalProperties": {
+            "$ref": "#/definitions/property"
+          },
+          "description": "Map with all properties of the document, key is the property name.",
+          "type": "object"
+        },
+        "required": {
+          "description": "Array of all mandatory properties.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "header": {
+      "description": "Object to describe a header.",
+      "properties": {
+        "description": {
+          "description": "Description for the header.",
+          "type": "string"
+        },
+        "type": {
+          "description": "The header type (it's name).",
+          "type": "string"
+        }
+      }
+    },
+    "info": {
+      "description": "Information object of the API.",
+      "properties": {
+        "title": {
+          "description": "API title.",
+          "type": "string"
+        },
+        "version": {
+          "description": "API version.",
+          "type": "string"
+        }
+      }
+    },
+    "method": {
+      "description": "Object to describe a single HTTP method for a resource.",
+      "properties": {
+        "consumes": {
+          "description": "Array of all data types which may be consumed by this method.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "description": {
+          "description": "Method description.",
+          "type": "string"
+        },
+        "operationId": {
+          "type": "string"
+        },
+        "parameters": {
+          "description": "Array of parameters for the method.",
+          "items": {
+            "$ref": "#/definitions/parameter"
+          },
+          "type": "array"
+        },
+        "produces": {
+          "description": "Array of all data types which may be produced by this method.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "responses": {
+          "additionalProperties": {
+            "$ref": "#/definitions/response"
+          },
+          "description": "Array of possible method responses.",
+          "type": "object"
+        },
+        "security": {
+          "description": "Contains the names of all security definitions, used for the REST method.",
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "tags": {
+          "description": "Array of tags, to group methods which belong all together to a resource path.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "parameter": {
+      "description": "Object for describing an HTTP method parameter.",
+      "properties": {
+        "description": {
+          "description": "Parameter description.",
+          "type": "string"
+        },
+        "format": {
+          "description": "Output format information.",
+          "enum": [
+            "int32",
+            "int64",
+            "float",
+            "double",
+            "byte",
+            "date",
+            "date-time",
+            "time",
+            "text",
+            "email",
+            "html",
+            "password",
+            "money",
+            "site-specific",
+            "localized"
+          ],
+          "type": "string"
+        },
+        "in": {
+          "description": "Type of the parameter.",
+          "enum": [
+            "header",
+            "query",
+            "path",
+            "body"
+          ],
+          "type": "string"
+        },
+        "items": {
+          "$ref": "#/definitions/property",
+          "description": "Parameter type description for type 'array'."
+        },
+        "maxLength": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maximum": {
+          "description": "Maximum value of the parameter.",
+          "format": "double",
+          "type": "number"
+        },
+        "minLength": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "minimum": {
+          "description": "Minimum value of the parameter.",
+          "format": "double",
+          "type": "number"
+        },
+        "name": {
+          "description": "Parameter name.",
+          "type": "string"
+        },
+        "pattern": {
+          "description": "Regular expression to limit string value.",
+          "type": "string"
+        },
+        "required": {
+          "description": "True, if parameter is mandatory.",
+          "type": "boolean"
+        },
+        "schema": {
+          "$ref": "#/definitions/schema",
+          "description": "Schema to refer to another document as parameter type."
+        },
+        "type": {
+          "description": "Data type, obsolete if schema is set.",
+          "enum": [
+            "integer",
+            "number",
+            "string",
+            "boolean",
+            "array",
+            "object"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "property": {
+      "description": "Document property description.",
+      "properties": {
+        "$ref": {
+          "description": "Either HTTP- or document-internal-link to a document as data type.",
+          "type": "string"
+        },
+        "additionalProperties": {
+          "$ref": "#/definitions/property"
+        },
+        "definition": {
+          "additionalProperties": {
+            "$ref": "#/definitions/document"
+          },
+          "description": "Single element map containing definition of a document. Obsolete if\n '$ref' is set.",
+          "type": "object"
+        },
+        "description": {
+          "description": "Property description.",
+          "type": "string"
+        },
+        "enum": {
+          "description": "Array of all valid property values.",
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "format": {
+          "description": "Output format information.",
+          "enum": [
+            "int32",
+            "int64",
+            "float",
+            "double",
+            "byte",
+            "date",
+            "date-time",
+            "time",
+            "text",
+            "email",
+            "html",
+            "password",
+            "money",
+            "site-specific",
+            "localized"
+          ],
+          "type": "string"
+        },
+        "items": {
+          "$ref": "#/definitions/property",
+          "description": "Property type description for type 'array'."
+        },
+        "maxItems": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maxLength": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maximum": {
+          "description": "Maximum property integer- or number-value.",
+          "format": "double",
+          "type": "number"
+        },
+        "minItems": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "minLength": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "minimum": {
+          "description": "Minimum property integer- or number-value.",
+          "format": "double",
+          "type": "number"
+        },
+        "pattern": {
+          "description": "Regular expression to limit string value.",
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "type": {
+          "description": "Data type information.",
+          "enum": [
+            "integer",
+            "number",
+            "string",
+            "boolean",
+            "array",
+            "object"
+          ],
+          "type": "string"
+        },
+        "x-enum-labels": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "x-label": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "format": "localized",
+          "type": "object"
+        },
+        "x-sub_type_definitions": {
+          "additionalProperties": {
+            "$ref": "#/definitions/document"
+          },
+          "type": "object"
+        },
+        "x-sub_types": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      }
+    },
+    "quota": {
+      "description": "Document representing a quota setting.",
+      "properties": {
+        "boolean": {
+          "description": "A flag, whether this limit doesn't require a counter and\n represents a boolean check.",
+          "type": "boolean"
+        },
+        "enforced": {
+          "description": "A flag whether the limit is enforced.",
+          "type": "boolean"
+        },
+        "hard_limit": {
+          "description": "The hard limit for this quota.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "description": "The name of the quota.",
+          "type": "string"
+        },
+        "soft_limit": {
+          "description": "The soft limit for this quota.",
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "record_description": {
+      "description": "Description object for a document.",
+      "properties": {
+        "id": {
+          "description": "Document ID.",
+          "type": "string"
+        },
+        "link": {
+          "description": "HTTP link to the document meta data.",
+          "type": "string"
+        }
+      }
+    },
+    "record_result": {
+      "description": "Result, containing all existing document descriptions.",
+      "properties": {
+        "data": {
+          "description": "Array of all existing document description objects.",
+          "items": {
+            "$ref": "#/definitions/record_description"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "resource": {
+      "description": "Resource meta data",
+      "properties": {
+        "delete": {
+          "$ref": "#/definitions/method",
+          "description": "Delete method description."
+        },
+        "get": {
+          "$ref": "#/definitions/method",
+          "description": "Get method description."
+        },
+        "patch": {
+          "$ref": "#/definitions/method",
+          "description": "Patch method description."
+        },
+        "post": {
+          "$ref": "#/definitions/method",
+          "description": "Post method description."
+        },
+        "put": {
+          "$ref": "#/definitions/method",
+          "description": "Put method description."
+        }
+      }
+    },
+    "response": {
+      "description": "HTTP method response meta data.",
+      "properties": {
+        "description": {
+          "description": "Response description.",
+          "type": "string"
+        },
+        "format": {
+          "description": "Response data format.",
+          "enum": [
+            "int32",
+            "int64",
+            "float",
+            "double",
+            "byte",
+            "date",
+            "date-time",
+            "time",
+            "text",
+            "email",
+            "html",
+            "password",
+            "money",
+            "site-specific",
+            "localized"
+          ],
+          "type": "string"
+        },
+        "headers": {
+          "description": "Array of headers, specific for the response.",
+          "items": {
+            "$ref": "#/definitions/header"
+          },
+          "type": "array"
+        },
+        "schema": {
+          "$ref": "#/definitions/schema",
+          "description": "Schema, containing return document."
+        },
+        "type": {
+          "description": "Response data type.",
+          "enum": [
+            "integer",
+            "number",
+            "string",
+            "boolean",
+            "array",
+            "object"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "rule_attribute": {
+      "description": "Document representing a customer group attribute.",
+      "properties": {
+        "attr_type": {
+          "description": "The data type of the attribute.",
+          "type": "string"
+        },
+        "attribute": {
+          "description": "The id of the attribute.",
+          "type": "string"
+        },
+        "display_name": {
+          "description": "The display name of the attribute.",
+          "type": "string"
+        },
+        "max_value": {
+          "description": "The maximal value, if set for the attribute.",
+          "type": "object"
+        },
+        "min_value": {
+          "description": "The minimal value, if set for the attribute.",
+          "type": "object"
+        },
+        "operators": {
+          "description": "The list of possible operators for the attribute.",
+          "items": {
+            "$ref": "#/definitions/rule_operator"
+          },
+          "type": "array"
+        },
+        "value_list": {
+          "description": "List of possible values for the attribute. Is only returned if attribute values are explicily restricted.",
+          "items": {
+            "$ref": "#/definitions/rule_attribute_value"
+          },
+          "type": "array"
+        },
+        "value_selector": {
+          "description": "The value selector, if set for the attribute.",
+          "type": "string"
+        }
+      }
+    },
+    "rule_attribute_group": {
+      "description": "Document representing a group of customer rule attributes.",
+      "properties": {
+        "attributes": {
+          "description": "The list of attributes of this group.",
+          "items": {
+            "$ref": "#/definitions/rule_attribute"
+          },
+          "type": "array"
+        },
+        "display_name": {
+          "description": "The display name of the attribute group.",
+          "type": "string"
+        },
+        "id": {
+          "description": "The id of the attribute group.",
+          "type": "string"
+        }
+      }
+    },
+    "rule_attribute_value": {
+      "description": "Document representing a possible value for a customer group attribute.",
+      "properties": {
+        "display_value": {
+          "description": "The display name of the value.",
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of the attribute.",
+          "type": "object"
+        }
+      }
+    },
+    "rule_operator": {
+      "description": "Document representing an operator for a customer group attribute.",
+      "properties": {
+        "display_value": {
+          "description": "The display value of the operator.",
+          "type": "string"
+        },
+        "operator": {
+          "description": "The operator of the attribute.",
+          "type": "string"
+        },
+        "value_restriction": {
+          "description": "Possible value restrictions for the operator.",
+          "type": "string"
+        },
+        "value_type": {
+          "description": "The attribute type for which the operator is valid.\n This is only set if the operator is restricted to a specific attribute type.",
+          "type": "string"
+        }
+      }
+    },
+    "schema": {
+      "description": "Object, containing either a link to a document or the definition of it.",
+      "properties": {
+        "$ref": {
+          "description": "HTTP- or document-internal link to the schema document.",
+          "type": "string"
+        },
+        "definition": {
+          "additionalProperties": {
+            "$ref": "#/definitions/document"
+          },
+          "description": "Single element map for document definition.",
+          "type": "object"
+        }
+      }
+    },
+    "security_definition": {
+      "description": "Definition object for describing an authorization mechanism.",
+      "properties": {
+        "authorizationUrl": {
+          "type": "string"
+        },
+        "description": {
+          "description": "A short description for security scheme.",
+          "type": "string"
+        },
+        "flow": {
+          "description": "The flow used by the OAuth2 security scheme (required, if type = oauth2).",
+          "enum": [
+            "accessCode",
+            "application",
+            "password",
+            "implicit"
+          ],
+          "type": "string"
+        },
+        "in": {
+          "description": "The location of the API key (required, if type = apiKey).",
+          "enum": [
+            "header",
+            "query"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "description": "The name of the header or query parameter to be used (required, if type = apiKey).",
+          "type": "string"
+        },
+        "tokenUrl": {
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the security scheme.",
+          "enum": [
+            "apiKey",
+            "basic",
+            "oauth2"
+          ],
+          "type": "string"
+        },
+        "x-authorizationUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "swagger": {
+      "description": "Swagger document, for swagger 2.0.",
+      "properties": {
+        "basePath": {
+          "type": "string"
+        },
+        "consumes": {
+          "description": "Array of consumed content types.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "definitions": {
+          "additionalProperties": {
+            "$ref": "#/definitions/document"
+          },
+          "description": "Map with all document definitions for the API, where the document id\n is the key.",
+          "type": "object"
+        },
+        "host": {
+          "description": "Host name.",
+          "type": "string"
+        },
+        "info": {
+          "$ref": "#/definitions/info",
+          "description": "API information."
+        },
+        "paths": {
+          "additionalProperties": {
+            "$ref": "#/definitions/resource"
+          },
+          "description": "Map with all resource definitions for the API, where the resource path\n is the key.",
+          "type": "object"
+        },
+        "produces": {
+          "description": "Array of produced content types.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "securityDefinitions": {
+          "additionalProperties": {
+            "$ref": "#/definitions/security_definition"
+          },
+          "type": "object"
+        },
+        "swagger": {
+          "description": "Swagger specification version.",
+          "type": "string"
+        },
+        "x-documents": {
+          "type": "string"
+        }
+      }
+    },
+    "uicustomization": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/uidata"
+        },
+        "observables": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "restricted": {
+          "type": "boolean"
+        },
+        "template": {
+          "type": "string"
+        },
+        "validators": {
+          "$ref": "#/definitions/validators"
+        }
+      }
+    },
+    "uidata": {},
+    "validators": {
+      "description": "Validation uses the buist validation framework.\n\n See "
+    },
+    "version_description": {
+      "description": "Description object for a version in an API.",
+      "properties": {
+        "link": {
+          "description": "HTTP link to the swagger document for the API and the version",
+          "type": "string"
+        },
+        "name": {
+          "description": "Version name.",
+          "type": "string"
+        },
+        "status": {
+          "description": "Version status.",
+          "type": "string"
+        }
+      }
+    },
+    "version_result": {
+      "description": "Result containing descriptions for all valid versions in an API.",
+      "properties": {
+        "versions": {
+          "description": "Array with all valid versions.",
+          "items": {
+            "$ref": "#/definitions/version_description"
+          },
+          "type": "array"
+        }
+      }
+    }
+  },
+  "x-documents": "https://demo-ocapi.demandware.net/s/-/dw/meta/v1/rest/meta/v99_9/documents",
+  "host": "demo-ocapi.demandware.net",
+  "info": {
+    "title": "Meta API",
+    "version": "1"
+  },
+  "paths": {
+    "/apps/bm/customer_group_rule_meta_data": {
+      "get": {
+        "description": "Get meta data for customer group rules.",
+        "operationId": "getAppsBmCustomerGroupRuleMetaData",
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/customer_group_rule_meta_data"
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2_application": []
+          }
+        ],
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/{application}/ui/{template}": {
+      "get": {
+        "description": "Retrieves the customization description for a UI screen or template.",
+        "operationId": "getAppsByIDUiByID",
+        "parameters": [
+          {
+            "description": "the id of the application",
+            "in": "path",
+            "name": "application",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "the name of the template",
+            "in": "path",
+            "name": "template",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/uicustomization"
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2_application": []
+          }
+        ],
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/rest": {
+      "get": {
+        "description": "Lists all existing APIs and the links to their meta data.",
+        "operationId": "getRest",
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/api_result"
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2_application": []
+          }
+        ],
+        "tags": [
+          "rest"
+        ]
+      }
+    },
+    "/rest/{api_name}": {
+      "get": {
+        "description": "Retrieves all existing versions and their status for a given API. Also\n this will retrieve the link to the swagger document for the API and the\n version.",
+        "operationId": "getRestByID",
+        "parameters": [
+          {
+            "description": "the name of the API",
+            "in": "path",
+            "name": "api_name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/version_result"
+            }
+          },
+          "404": {
+            "description": "in case of an invalid API name"
+          }
+        },
+        "security": [
+          {
+            "oauth2_application": []
+          }
+        ],
+        "tags": [
+          "rest"
+        ]
+      }
+    },
+    "/rest/{api_name}/{version}": {
+      "get": {
+        "description": "Retrieves the swagger documentation object for an API and a version. Included\n are all resource descriptions and all documents which are referenced by them.\n Note that you have to access Shop API meta data always in a site context, to\n access resources, valid for your client.",
+        "operationId": "getRestByIDByID",
+        "parameters": [
+          {
+            "description": "the name of the API",
+            "in": "path",
+            "name": "api_name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "the version to get the description for",
+            "in": "path",
+            "name": "version",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "path",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "items": {
+              "type": "string"
+            },
+            "name": "methods",
+            "type": "array"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/swagger"
+            }
+          },
+          "404": {
+            "description": "in case of an invalid API identifier"
+          }
+        },
+        "security": [
+          {
+            "oauth2_application": []
+          }
+        ],
+        "tags": [
+          "rest"
+        ]
+      }
+    },
+    "/rest/{api_name}/{version}/documents": {
+      "get": {
+        "description": "Retrieves a list of all documents, available for an API and version, and \n the links to their detailed meta data.",
+        "operationId": "getRestByIDByIDDocuments",
+        "parameters": [
+          {
+            "description": "the name of the API",
+            "in": "path",
+            "name": "api_name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "the version to get the description for",
+            "in": "path",
+            "name": "version",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/record_result"
+            }
+          },
+          "404": {
+            "description": "in case of an invalid API identifier"
+          }
+        },
+        "security": [
+          {
+            "oauth2_application": []
+          }
+        ],
+        "tags": [
+          "rest"
+        ]
+      }
+    },
+    "/rest/{api_name}/{version}/documents/{document_id}": {
+      "get": {
+        "description": "Retrieves the meta data for a single document in a version and API. The\n children query parameter will include all child documents \n recursively, if it is set to embedded. Otherwise the meta data\n will contain http links to the child document description.",
+        "operationId": "getRestByIDByIDDocumentsByID",
+        "parameters": [
+          {
+            "description": "the name of the API",
+            "in": "path",
+            "name": "api_name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "the version to get the description for",
+            "in": "path",
+            "name": "version",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "the id of the document to get meta data for",
+            "in": "path",
+            "name": "document_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "children",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/document"
+            }
+          },
+          "404": {
+            "description": "in case of an invalid API identifier or in case of an invalid record ID"
+          }
+        },
+        "security": [
+          {
+            "oauth2_application": []
+          }
+        ],
+        "tags": [
+          "rest"
+        ]
+      }
+    }
+  },
+  "produces": [
+    "application/json",
+    "text/xml",
+    "application/xml"
+  ],
+  "securityDefinitions": {
+    "oauth2_application": {
+      "description": "Authentication flow with client ID and password with account manager.",
+      "flow": "application",
+      "tokenUrl": "https://account.demandware.com:443/dw/oauth2/access_token",
+      "type": "oauth2"
+    },
+    "client_id": {
+      "description": "Add client ID for application identification. Alternative as 'client_id' query parameter.",
+      "in": "header",
+      "name": "x-dw-client-id",
+      "type": "apiKey"
+    }
+  },
+  "swagger": "2.0"
+}
